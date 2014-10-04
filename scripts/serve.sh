@@ -9,7 +9,7 @@ block="server {
 
     charset utf-8;
 
-    include *.$1.conf
+    include /etc/nginx/sites-available/*.$1;
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location = /robots.txt  { access_log off; log_not_found off; }

@@ -6,5 +6,4 @@ location $3/ {
 }
 "
 
-echo "$block" > "/etc/nginx/sites-available/$2.$1.conf"
-ln -fs "/etc/nginx/sites-available/$2.$1.conf" "/etc/nginx/sites-enabled/$2.$1.conf"
+echo "$block" > "/etc/nginx/sites-available/$2.$1"
