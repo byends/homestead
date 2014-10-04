@@ -8,6 +8,8 @@ function serve() {
 	if [[ "$1" && "$2" ]]
 	then
 		sudo dos2unix /vagrant/scripts/serve.sh
+		sudo dos2unix /vagrant/scripts/host.sh
+		sudo bash /vagrant/scripts/host.sh "$1" "$1" ""
 		sudo bash /vagrant/scripts/serve.sh "$1" "$2"
 	else
 		echo "Error: missing required parameters."

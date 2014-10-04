@@ -5,7 +5,8 @@ class Homestead
     config.vm.hostname = "homestead"
 
     # Configure A Private Network IP
-    config.vm.network :private_network, ip: settings["ip"] ||= "192.168.10.10"
+    #private_network or public_network
+    config.vm.network settings["network"] ||= "private_network", ip: settings["ip"] ||= "192.168.10.10"
 
     # Configure A Few VirtualBox Settings
     config.vm.provider "virtualbox" do |vb|
@@ -16,9 +17,9 @@ class Homestead
     end
 
     # Configure Port Forwarding To The Box
-    config.vm.network "forwarded_port", guest: 80, host: 8000
-    config.vm.network "forwarded_port", guest: 3306, host: 33060
-    config.vm.network "forwarded_port", guest: 5432, host: 54320
+    config.vm.network "forwarded_port", guest: 80, host: 80
+    config.vm.network "forwarded_port", guest: 3306, host: 3306
+    config.vm.network "forwarded_port", guest: 5432, host: 5432
 
     # Configure The Public Key For SSH Access
     config.vm.provision "shell" do |s|
@@ -47,6 +48,19 @@ class Homestead
 
     # Install All The Configured Nginx Sites
     settings["sites"].each do |site|
+      if (site.has_key?("hosts"))
+        site["hosts"].each do |host|
+          config.vm.provision "shell" do |s|
+            s.inline = "bash /vagrant/scripts/host.sh $1 $2 $3"
+            s.args = [site["map"], host["map"], host["to"]]
+          end
+        end
+      else
+        config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/host.sh $1 $2 $3"
+          s.args = [site["map"], site["map"], ""]
+        end
+      end
       config.vm.provision "shell" do |s|
           if (site.has_key?("hhvm") && site["hhvm"])
             s.inline = "bash /vagrant/scripts/serve-hhvm.sh $1 $2"

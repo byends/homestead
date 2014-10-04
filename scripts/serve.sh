@@ -9,9 +9,7 @@ block="server {
 
     charset utf-8;
 
-    location / {
-        try_files \$uri \$uri/ /index.php?\$query_string;
-    }
+    include *.$1.conf
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location = /robots.txt  { access_log off; log_not_found off; }

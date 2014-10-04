@@ -1,20 +1,26 @@
 ---
-ip: "192.168.10.10"
+ip: "192.168.1.89"
 memory: 2048
 cpus: 1
+network: "public_network"
 
-authorize: ~/.ssh/id_rsa.pub
+authorize: F:/homestead/ssh/id_rsa.pub
 
 keys:
-    - ~/.ssh/id_rsa
+    - F:/homestead/ssh/id_rsa
 
 folders:
-    - map: ~/Code
-      to: /home/vagrant/Code
+    - map: F:/dev
+      to: /home/vagrant/code
 
 sites:
-    - map: homestead.app
-      to: /home/vagrant/Code/Laravel/public
+    - map: localhost
+      to: /home/vagrant/code
+      hosts: 
+          - map: baciuzzi
+            to: /baciuzzi/public
+          - map: crawler
+            to: /crawler/public
 
 variables:
     - key: APP_ENV
