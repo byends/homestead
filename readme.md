@@ -4,7 +4,7 @@ Laravel 官方的本地开发环境，使用以下软件构建
 
 - [Vagrant](http://www.vagrantup.com/downloads.html)
 - [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-- [Ubuntu(homestead box)](https://www.virtualbox.org/wiki/Downloads)
+- [Ubuntu(homestead box)](https://vagrantcloud.com/laravel/boxes/homestead/versions)
 
 ### 此开发环境包含以下软件
 - Ubuntu 14.04
